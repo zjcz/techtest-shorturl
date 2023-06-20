@@ -41,3 +41,8 @@ My first step was to create the web app using the Spring Initializr tool.  This 
 Next, I added the repository and service layer. The repository simply inherits from the CrudRepository interface and lets Spring Data JPA work its magic.  The service layer provides a wrapper around the repository, adding in validation and handles the generation of the shortUrl code.
 
 Then I added 2 controllers, one to handle the API calls and one to resolve the shortcode and redirect to the desired url.  These are light on functionality, simply validating the input and calling the service layer to process and produce a response.
+
+To make the application production ready I have added the [Spring Boot Actuator Module](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator.enabling), with the default config settings.  The application logs data using the [Commons Logging Module](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.logging) as adopted by Spring Boot.  Again this uses the default settings so will only log to the console but for full production use logging to file(s) would probably be desired.
+
+One feature of this solution which limits the production readiness is only a single instance of the application can be run, as each instance would store urls in its own H2 in-memory database, so a url added to one instance would not be available on another.  However, as the brief states it is acceptable to store data in memory I feel this is an acceptable tradeoff under the circumstances. 
+ 
