@@ -1,7 +1,7 @@
 # Tech Test-Short Url Webapp
 
 ## Introduction
-Tech test for a software developer interview.
+This project is my solution to a tech test for a software developer interview.
 
 #### Brief
 
@@ -36,6 +36,8 @@ The requirements seemed reasonably straight forward, the only part I was unsure 
 
 I decided to use this idea but with one small change.  I would encode the identifier and save the short code to the database.  When the user requested the url for the short code I could lookup the record using the short code without the need to decode it.  This would make the initial adding of the url slower as it would need to be saved to the database twice, but it would be quicker to lookup the url when required as no decoding would be needed.
 
-My first step was to create the web app using the Spring Initializr tool.  This included the Web, JPA and H2 modules.
+My first step was to create the web app using the Spring Initializr tool.  This included the Web, JPA and H2 modules.  I decided to use H2 as the backend database for this project as it is easy to setup and does not rely on a 3rd party database system being installed on the machine.  The downside of this is all the data is lost everytime the webapp is restarted (this can be prevented in config but for the purposes of this simple project we will leave it as is).
 
-Next, I added the repository and the service layers.
+Next, I added the repository and service layer. The repository simply inherits from the CrudRepository interface and lets Spring Data JPA work its magic.  The service layer provides a wrapper around the repository, adding in validation and handles the generation of the shortUrl code.
+
+Then I added 2 controllers, one to handle the API calls and one to resolve the shortcode and redirect to the desired url.  These are light on functionality, simply validating the input and calling the service layer to process and produce a response.
